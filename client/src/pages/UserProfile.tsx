@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { UserNavbar } from "../components/UserNavbar";
 import toast from "react-hot-toast";
-import {axiosInstance} from "../lib/axios";
+import { axiosInstance } from "../lib/axios";
 import { useNavigate } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../firebase/firebaseConfig";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(true);
@@ -12,8 +14,9 @@ const UserProfile = () => {
     name: "",
     email: "",
     id: "",
-    image:''
+    image: "",
   });
+  const theme = useSelector((state: RootState) => state.theme.mode);
 
   const navigate = useNavigate();
 
@@ -31,7 +34,7 @@ const UserProfile = () => {
           email: response.data.user.email,
           name: response.data.user.name,
           id: response.data.user.id,
-          image:response.data.user.image || ''
+          image: response.data.user.image || "",
         });
       }
     } catch (error: any) {
@@ -43,28 +46,28 @@ const UserProfile = () => {
     }
   };
 
-  const handleImageUpload =async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const target = e.target as HTMLInputElement;
-  
+
       if (target.files && target.files.length > 0) {
         const selectedFile = target.files[0];
-        const pathName = `${userDetails.email}`; 
-        const storageRef = ref(storage, pathName); 
-  
+        const pathName = `${userDetails.email}`;
+        const storageRef = ref(storage, pathName);
+
         // Start the file upload
         const snapShot = await uploadBytes(storageRef, selectedFile);
 
         const downloadURL = await getDownloadURL(snapShot.ref);
 
-        let response = await axiosInstance.post('/api/upload-image', { image: downloadURL });
-        
+        let response = await axiosInstance.post("/api/upload-image", {
+          image: downloadURL,
+        });
+
         if (response.data) {
           setUserDetails({ ...userDetails, image: response.data.image });
           toast.success(response.data.message);
         }
-        
-
       }
     } catch (error: any) {
       console.error("Error uploading image:", error);
@@ -84,7 +87,13 @@ const UserProfile = () => {
     <>
       <UserNavbar />
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div
+          className={`w-full max-w-sm bg- border border-gray-200 rounded-lg shadow${
+            theme === "light"
+              ? "bg-white border-gray-200"
+              : "bg-gray-800 border-gray-700"
+          }`}
+        >
           <div className="flex flex-col items-center pb-10">
             <img
               className="w-24 h-24 mb-3 rounded-full shadow-lg"

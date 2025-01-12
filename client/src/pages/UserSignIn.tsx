@@ -2,10 +2,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../lib/axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../features/admin/manageUserSlice";
 import { onLogin } from "../features/user/userSlice";
 import { UserNavbar } from "../components/UserNavbar";
+import { RootState } from "../app/store";
 
 const UserSignIn = () => {
   const [signUpDetails, setSignUpDetails] = useState({
@@ -15,6 +16,7 @@ const UserSignIn = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const theme = useSelector((state: RootState) => state.theme.mode);
 
   // Handle user sign-up
   const handleUserSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,7 +59,13 @@ const UserSignIn = () => {
   return (
     <>
       <UserNavbar />
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div
+        className={`flex items-center justify-center min-h-screen ${
+          theme === "light"
+            ? "bg-white border-gray-200"
+            : "bg-gray-800 border-gray-700"
+        }`}
+      >
         <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-lg">
           <form
             onSubmit={handleUserSignIn}

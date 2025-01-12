@@ -17,7 +17,11 @@ const AdminHome = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<{ id: string; name: string; email: string } | null>(null);
+  const [selectedUser, setSelectedUser] = useState<{
+    id: string;
+    name: string;
+    email: string;
+  } | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [signUpDetails, setSignUpDetails] = useState({
@@ -44,7 +48,9 @@ const AdminHome = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await axiosInstance.post("/api/admin/delete-user", { id });
+      const response = await axiosInstance.post("/api/admin/delete-user", {
+        id,
+      });
       if (response.data) {
         toast.success(response.data.message);
         dispatch(deleteUser(id));
@@ -85,18 +91,25 @@ const AdminHome = () => {
 
   const handleUserSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!signUpDetails.username || !signUpDetails.password || !signUpDetails.email) {
+    if (
+      !signUpDetails.username ||
+      !signUpDetails.password ||
+      !signUpDetails.email
+    ) {
       toast.error("All fields are required.");
       return;
     }
     try {
-      const response = await axiosInstance.post("/api/admin/add-user", signUpDetails);
+      const response = await axiosInstance.post(
+        "/api/admin/add-user",
+        signUpDetails
+      );
       if (response.data) {
         toast.success(response.data.message);
         // Optionally reset form fields
         setSignUpDetails({ username: "", password: "", email: "" });
         setIsAddUserModalOpen(false);
-        dispatch(appendUser(response.data.user))
+        dispatch(appendUser(response.data.user));
       } else {
         toast.error("Sign up failed. Please try again.");
       }
@@ -110,7 +123,9 @@ const AdminHome = () => {
     <>
       <AdminNavbar />
       <div className="flex flex-col mt-10 items-center min-h-screen bg-gray-50">
-        <h2 className="text-4xl font-semibold text-gray-900 mb-6">User Details</h2>
+        <h2 className="text-4xl font-semibold text-gray-900 mb-6">
+          User Details
+        </h2>
         <button
           onClick={() => setIsAddUserModalOpen(true)}
           className="mb-4 text-white bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 transition"
@@ -121,16 +136,30 @@ const AdminHome = () => {
           <table className="min-w-full text-sm text-left text-gray-700 shadow-md rounded-lg overflow-hidden">
             <thead className="text-xs uppercase bg-gray-200 text-gray-700">
               <tr>
-                <th scope="col" className="px-6 py-3">Sl</th>
-                <th scope="col" className="px-6 py-3">Name</th>
-                <th scope="col" className="px-6 py-3">Email</th>
-                <th scope="col" className="px-6 py-3">Action</th>
+                <th scope="col" className="px-6 py-3">
+                  Sl
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Email
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
               {usersList.map((user, index) => (
-                <tr className="bg-white border-b hover:bg-gray-100" key={user.id}>
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                <tr
+                  className="bg-white border-b hover:bg-gray-100"
+                  key={user.id}
+                >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  >
                     {index + 1}
                   </th>
                   <td className="px-6 py-4">{user.name}</td>
@@ -174,7 +203,9 @@ const AdminHome = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Email
+                  </label>
                   <input
                     type="email"
                     disabled
@@ -211,31 +242,52 @@ const AdminHome = () => {
               <h2 className="text-lg font-semibold mb-4">Add User</h2>
               <form onSubmit={handleUserSignUp}>
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Username</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Username
+                  </label>
                   <input
                     type="text"
                     value={signUpDetails.username}
-                    onChange={(e) => setSignUpDetails({ ...signUpDetails, username: e.target.value })}
+                    onChange={(e) =>
+                      setSignUpDetails({
+                        ...signUpDetails,
+                        username: e.target.value,
+                      })
+                    }
                     className="border border-gray-300 rounded-md w-full p-2"
                     required
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Email
+                  </label>
                   <input
                     type="email"
                     value={signUpDetails.email}
-                    onChange={(e) => setSignUpDetails({ ...signUpDetails, email: e.target.value })}
+                    onChange={(e) =>
+                      setSignUpDetails({
+                        ...signUpDetails,
+                        email: e.target.value,
+                      })
+                    }
                     className="border border-gray-300 rounded-md w-full p-2"
                     required
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Password</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Password
+                  </label>
                   <input
                     type="password"
                     value={signUpDetails.password}
-                    onChange={(e) => setSignUpDetails({ ...signUpDetails, password: e.target.value })}
+                    onChange={(e) =>
+                      setSignUpDetails({
+                        ...signUpDetails,
+                        password: e.target.value,
+                      })
+                    }
                     className="border border-gray-300 rounded-md w-full p-2"
                     required
                   />

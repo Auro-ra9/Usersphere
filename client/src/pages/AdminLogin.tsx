@@ -8,22 +8,21 @@ const AdminLogin = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const handleAdminLogin = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleAdminLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       if (!loginDetails.username || !loginDetails.password) {
         toast.error("Both fields are required");
         return;
       }
-      
-      let response = await axiosInstance.post('/api/admin/login', loginDetails);
+
+      let response = await axiosInstance.post("/api/admin/login", loginDetails);
 
       if (response.data) {
         toast.success(response.data.message);
         navigate("/admin/home");
       }
-
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Login error:", error);
       toast.error(error.message);
     }

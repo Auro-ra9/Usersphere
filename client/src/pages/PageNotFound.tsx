@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const PageNotFound = () => {
   return (
@@ -8,7 +8,10 @@ const PageNotFound = () => {
       <p className="text-gray-500 mb-6">
         Sorry, the page you are looking for does not exist or has been moved.
       </p>
-      <Link to="/" className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg">
+      <Link
+        to="/"
+        className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg"
+      >
         Go Back to Home
       </Link>
     </div>
