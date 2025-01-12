@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import {axiosInstance }from "../lib/axios";
+import { axiosInstance } from "../lib/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import { onLogout } from "../features/user/userSlice";
@@ -33,7 +33,11 @@ export const UserNavbar = () => {
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Logo
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="h-8 w-auto"
+            />
           </span>
         </Link>
         <button

@@ -1,10 +1,9 @@
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import {axiosInstance} from "../lib/axios";
+import { axiosInstance } from "../lib/axios";
 
 export const AdminNavbar = () => {
   const navigate = useNavigate();
-
 
   const handleLogout = async () => {
     try {
@@ -27,7 +26,11 @@ export const AdminNavbar = () => {
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Logo
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="h-8 w-auto" 
+            />
           </span>
         </Link>
         <button
@@ -65,16 +68,15 @@ export const AdminNavbar = () => {
                 Users
               </Link>
             </li>
-             
-            
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="block py-2 px-3 text-blue-700 bg-blue-700 rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-blue-500"
-                >
-                  Logout
-                </button>
-              </li>
+
+            <li>
+              <button
+                onClick={handleLogout}
+                className="block py-2 px-3 text-blue-700 bg-blue-700 rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-blue-500"
+              >
+                Logout
+              </button>
+            </li>
           </ul>
         </div>
       </div>
