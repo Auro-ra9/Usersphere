@@ -1,11 +1,9 @@
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import {axiosInstance} from "../lib/axios";
-import { useDispatch } from "react-redux";
 
 export const AdminNavbar = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
 
   const handleLogout = async () => {
