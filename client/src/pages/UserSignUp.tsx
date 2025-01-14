@@ -40,7 +40,7 @@ const UserSignUp = () => {
       // inside try only success message comes using axios
       if (response.data) {
         toast.success(response.data.message);
-        navigate("/login");
+        navigate("/sign-in");
 
         // dispatch(addUser(signUpDetails));
       } else {

@@ -10,7 +10,7 @@ const UserHome = () => {
     <>
       <UserNavbar />
       <div
-        className={`flex flex-col items-center justify-center min-h-screen${
+        className={`flex flex-col items-center justify-center min-h-screen ${
           theme === "light"
             ? "bg-white border-gray-200"
             : "bg-gray-800 border-gray-700"
