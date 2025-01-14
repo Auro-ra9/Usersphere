@@ -136,7 +136,7 @@ const UserProfile = () => {
     <>
       <UserNavbar />
       <div
-        className={`flex  items-center justify-center min-h-screen ${
+        className={`flex-grow flex  items-center justify-center ${
           theme === "light"
             ? "bg-white border-gray-200"
             : "bg-gray-800 border-gray-700"
